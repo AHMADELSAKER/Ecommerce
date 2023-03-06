@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ecommers/layout/Shop/Cubit/Cubit.dart';
-import 'package:ecommers/models/SearchModel/FavoriteModel.dart';
+import 'package:ecommers/models/SearchModel/SearchModel.dart';
 import 'package:ecommers/shared/network/remote/dio_helper.dart';
 import 'package:ecommers/shared/network/remote/end_point.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

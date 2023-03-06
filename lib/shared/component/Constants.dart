@@ -5,6 +5,7 @@ import '../../modules/Shop-app/login/shop-login-screen.dart';
 import 'components.dart';
 
 void SignOut(context) {
+  print('object');
   cachehelper.Removedata('token').then((value) {
     if (value) {
       navigatoandremove(context: context, widget: Shoplogin());

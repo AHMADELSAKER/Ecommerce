@@ -5,7 +5,7 @@ class DefaultFormField extends StatelessWidget {
   TextInputType type;
   String label;
   IconData prefix;
-  IconData? suffix;
+  Widget? suffix;
   bool? ispassword;
   Function valdiate;
   Function? suffixpressed;
@@ -59,12 +59,13 @@ class DefaultFormField extends StatelessWidget {
           prefix,
         ),
 
-        suffixIcon: suffix != null
-            ? IconButton(
-                onPressed: suffixpressed!(),
-                icon: Icon(suffix),
-              )
-            : null,
+        suffixIcon: suffix 
+        // != null
+        //     ? IconButton(
+        //         onPressed: suffixpressed!(),
+        //         icon: Icon(suffix),
+        //       )
+        //     : null,
       ),
     );
   }

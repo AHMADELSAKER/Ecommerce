@@ -9,12 +9,16 @@ import 'package:ecommers/shared/component/default_formfield.dart';
 import 'package:ecommers/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
 // ignore: must_be_immutable, use_key_in_widget_constructors
-class Shoplogin extends StatelessWidget {
+class Shoplogin extends StatefulWidget {
+  @override
+  State<Shoplogin> createState() => _ShoploginState();
+}
+
+class _ShoploginState extends State<Shoplogin> {
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
@@ -29,6 +33,7 @@ class Shoplogin extends StatelessWidget {
             if (state.loginmodel!.status!) {
               print(state.loginmodel!.message);
               print(state.loginmodel!.data!.token);
+              print('========================================================');
               cachehelper.Savedata(
                       key: 'token', value: state.loginmodel!.data!.token)
                   .then((value) {
@@ -38,8 +43,6 @@ class Shoplogin extends StatelessWidget {
               });
             } else {
               print(state.loginmodel!.message);
-              // showtoast(
-              //     msg: state.loginmodel!.message, state: ToastState.Error);
             }
           }
         }, builder: (context, state) {
@@ -86,38 +89,26 @@ class Shoplogin extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        TextFormField(
-                          obscureText: shoplogincubit.get(context).ispassword!,
+                        DefaultFormField(
+                          suffixpressed: () {},
                           controller: passcontroller,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            label: Text('Password'),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  shoplogincubit
-                                      .get(context)
-                                      .changepasswordvisibilty();
-                                },
-                                icon: Icon(shoplogincubit.get(context).suffix)),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              borderSide:
-                                  BorderSide(color: Colors.redAccent, width: 5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              borderSide: BorderSide(
-                                  color: Colors.blueAccent, width: 5),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              borderSide: BorderSide(
-                                color: Colors.blueAccent,
-                                width: 2.0,
-                              ),
-                            ),
-                            border: OutlineInputBorder(),
-                          ),
+                          type: TextInputType.visiblePassword,
+                          label: 'Password',
+                          suffix: IconButton(
+                              onPressed: () {
+                                shoplogincubit
+                                    .get(context)
+                                    .changepasswordvisibilty();
+                              },
+                              icon: Icon(shoplogincubit.get(context).suffix)),
+                          prefix: Icons.email_outlined,
+                          valdiate: (String value) {
+                            if (value.isEmpty) {
+                              return 'please enter your email';
+                            }
+                            ;
+                          },
+                          ispassword: shoplogincubit.get(context).ispassword!,
                         ),
                         SizedBox(
                           height: 20,
@@ -131,11 +122,6 @@ class Shoplogin extends StatelessWidget {
                                       password: passcontroller.text,
                                       email: emailcontroller.text);
                                 }
-                                print(
-                                    '${state}+noooooooooooooooooooooowwwwwwwwwwwwww');
-                                print(
-                                    '${emailcontroller.toString()}+12312132654564687987');
-                                print(passcontroller);
                               },
                               backroundcolor: Colors.blueAccent,
                               text: 'Login'),
